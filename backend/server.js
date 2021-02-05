@@ -4,6 +4,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const colors = require('colors');
 const passport = require('passport');
+const jwt = require('jsonwebtoken');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 const connectDB = require('./config/db');
 
@@ -32,6 +33,31 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT;
 
-app.listen(PORT, () =>
+const server = app.listen(PORT, () =>
   console.log(`Server is running on ${PORT}`.cyan.underline)
 );
+
+const io = require('socket.io')(server, {
+  cors: {
+    cors,
+  },
+});
+
+io.use((socket, next) => {
+  try {
+    const token = socket.handshake.auth.token;
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    socket.userId = payload.id;
+    next();
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+io.on('connection', socket => {
+  console.log('connected: ' + socket.userId);
+
+  socket.on('disconnect', () => {
+    console.log('Disconnected: ' + socket.userId);
+  });
+});

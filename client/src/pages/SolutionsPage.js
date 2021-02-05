@@ -86,13 +86,8 @@ const SolutionsPage = ({ history }) => {
               <button type='button'>Search</button>
             </div>
             <NavLink to='/createSolution'>
-              <Button
-                className='createButton'
-                color='#635EF6'
-                type='submit'
-                height='40px'
-              >
-                Create Solution
+              <Button className='createButton' type='submit'>
+                Create
               </Button>
             </NavLink>
           </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './styles/app.scss';
+import { ChakraProvider } from '@chakra-ui/react';
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchUsersAction } from './actions/usersActions';
@@ -35,32 +36,34 @@ function App() {
 
   return (
     <div className='app'>
-      {!user ? (
-        <LoginPage key='loginPage' />
-      ) : (
-        <div className='app__container'>
-          <Navbar history={history} setTitle={setTitle} />
-          <div className='app_mainContent'>
-            <Header title={title} />
-            <Switch>
-              <Route exact path='/'>
-                <Redirect to={user ? '/dashboard' : '/login'} />
-              </Route>
-              <Route path={('/', '/dashboard')} component={DashboardPage} />
-              <Route
-                path={['/createSolution', '/manageSolution/:id']}
-                component={CreateSolutionPage}
-              />
-              <Route path='/team' component={TeamPage} />
-              <Route path='/solutions' component={SolutionsPage} />
-              <Route path='/second' component={SecondPage} />
-              <Route path='/chat' component={ChatPage} />
-              <Route path='/tools' component={ToolsPage} />
-            </Switch>
-            <Footer />
+      <ChakraProvider>
+        {!user ? (
+          <LoginPage key='loginPage' />
+        ) : (
+          <div className='app__container'>
+            <Navbar history={history} setTitle={setTitle} />
+            <div className='app_mainContent'>
+              <Header title={title} />
+              <Switch>
+                <Route exact path='/'>
+                  <Redirect to={user ? '/dashboard' : '/login'} />
+                </Route>
+                <Route path={('/', '/dashboard')} component={DashboardPage} />
+                <Route
+                  path={['/createSolution', '/manageSolution/:id']}
+                  component={CreateSolutionPage}
+                />
+                <Route path='/team' component={TeamPage} />
+                <Route path='/solutions' component={SolutionsPage} />
+                <Route path='/second' component={SecondPage} />
+                <Route path='/chat' component={ChatPage} />
+                <Route path='/tools' component={ToolsPage} />
+              </Switch>
+              <Footer />
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </ChakraProvider>
     </div>
   );
 }

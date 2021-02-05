@@ -19,10 +19,10 @@
 }
 
 .login__icon {
-  height: 70px;
-  width: 70px;
+  margin-top: 20px;
+  height: 140px;
+  width: 140px;
   color: #62686c;
-  padding-top: 30px;
 }
 
 .login__header {
@@ -37,8 +37,20 @@
 }
 
 .login__input {
-  margin-top: 20px !important;
-  width: 80%;
+  margin-top: 20px;
+  width: 80% !important;
+  height: 50px !important;
+}
+
+.login__button {
+  margin: 2rem 0 1.5rem;
+}
+
+.login__google-button {
+  margin: 1rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .login__form-divider {

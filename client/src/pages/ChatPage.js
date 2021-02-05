@@ -4,6 +4,7 @@ import { messages } from '../data/messages';
 import ChatMessage from '../components/ChatMessage';
 import ChatMembersItem from '../components/ChatMembersItem';
 import InputEmoji from 'react-input-emoji';
+import io from 'socket.io-client';
 
 function createName(user) {
   const { firstName, lastName } = user;
@@ -11,8 +12,15 @@ function createName(user) {
 }
 
 const ChatPage = () => {
+  const { user } = useSelector(state => state.auth);
   const [message, setMessage] = useState('');
   const { users } = useSelector(state => state.users);
+  const socket = io('http://localhost:5000', {
+    'force new connection': false,
+    auth: {
+      token: user.token,
+    },
+  });
 
   const onEnterHandler = () => {
     messages.push({

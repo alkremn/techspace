@@ -1,37 +1,27 @@
 import React from 'react';
-import { Loader } from 'semantic-ui-react';
 
 const Button = ({
-  color,
-  type,
   className,
+  color,
+  children,
+  primary,
+  onClick,
+  disabled,
   width,
   height,
-  children,
-  onClick,
-  loading,
-  inverted,
-  titleColor,
-  disabled,
 }) => {
   return (
     <button
-      className={`button ${className ? className : ''}`}
+      className={`button ${className} ${primary ? 'primary' : ''}`}
       onClick={onClick}
       disabled={disabled}
-      type={type}
       style={{
-        background: `${color}`,
-        color: titleColor,
-        width: width,
-        height: height,
+        width: `${width}px`,
+        height: `${height ?? height}px`,
+        backgroundColor: color,
       }}
     >
-      {loading ? (
-        <Loader className='buttonloader' inverted={inverted} active={loading} />
-      ) : (
-        children
-      )}
+      {children}
     </button>
   );
 };

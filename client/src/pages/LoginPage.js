@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginAction } from '../actions/authActions';
-import { mainButtonColor, googleButtonColor } from '../styles/colors';
-import { Input } from 'semantic-ui-react';
-import { GiMicroscope } from 'react-icons/gi';
+import { googleButtonColor } from '../styles/colors';
+import logoIcon from '../assets/Logo.svg';
 import { FcGoogle } from 'react-icons/fc';
 import Button from '../components/common/Button';
-import { motion, } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { Input } from '@chakra-ui/react';
 
 const LoginPage = ({ history }) => {
   const [email, setEmail] = useState('');
@@ -27,59 +27,64 @@ const LoginPage = ({ history }) => {
 
   return (
     <div className='login'>
-        <motion.div
-          key='loginDiv'
-          className='login__container'
-          initial={{ scale: 0.3, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.3 }}
-          exit={{ scale: 0.3, opacity: 0 }}
-        >
-          <GiMicroscope className='login__icon' />
-          <h1 className='login__header'>Tech Space</h1>
-          <form className='login__form' action='/api/login' method='POST'>
-            <Input
-              id='email'
-              value={email}
-              size='huge'
-              className='login__input'
-              placeholder='email'
-              type='email'
-              onChange={e => setEmail(e.target.value)}
-            />
-            <Input
-              id='password'
-              size='huge'
-              value={password}
-              className='login__input'
-              placeholder='password'
-              variant='outlined'
-              onChange={e => setPassword(e.target.value)}
-              type='password'
-            />
-            <Button
-              color={mainButtonColor}
-              type='submit'
-              onClick={e => loginHandler(e)}
-              loading={loading}
-            >
-              Log In
-            </Button>
-          </form>
-          <div className='login__form-divider'>
-            <span>or</span>
-          </div>
-          <form
-            className='login__google-form'
-            action='http://localhost:5000/api/v1/auth/google'
-            method='GET'
+      <motion.div
+        key='loginDiv'
+        className='login__container'
+        initial={{ scale: 0.3, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.3 }}
+        exit={{ scale: 0.3, opacity: 0 }}
+      >
+        <img className='login__icon' src={logoIcon} alt='logo' />
+        <form className='login__form' action='/api/login' method='POST'>
+          <Input
+            id='email'
+            value={email}
+            size='lg'
+            className='login__input'
+            placeholder='email'
+            type='email'
+            onChange={e => setEmail(e.target.value)}
+          />
+          <Input
+            id='password'
+            size='lg'
+            value={password}
+            className='login__input'
+            placeholder='password'
+            onChange={e => setPassword(e.target.value)}
+            type='password'
+          />
+          <Button
+            className='login__button'
+            primary
+            width='320'
+            height='45'
+            onClick={e => loginHandler(e)}
           >
-            <Button className='login__google-button' color={googleButtonColor}>
-              <FcGoogle className='login__google-icon' />
-              Log In With Google
-            </Button>
-          </form>
-        </motion.div>
+            Log In
+          </Button>
+        </form>
+        <div className='login__form-divider'>
+          <span>or</span>
+        </div>
+        <form
+          className='login__google-form'
+          action='http://localhost:5000/api/v1/auth/google'
+          method='GET'
+        >
+          <Button
+            className='login__google-button'
+            height='40'
+            width='320'
+            primary
+            color={googleButtonColor}
+          >
+            <FcGoogle className='login__google-icon' />
+            Log In With Google
+          </Button>
+        </form>
+      </motion.div>
     </div>
   );
 };
